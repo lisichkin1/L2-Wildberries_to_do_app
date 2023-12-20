@@ -36,7 +36,7 @@
 .nav__list li a {
   display: flex;
   text-decoration: none;
-  color: var(--black);
+
   align-items: center;
   column-gap: 10px;
 
