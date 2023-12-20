@@ -1,0 +1,62 @@
+:root {
+  --shadow-color: rgba(34, 60, 80, 0.2);
+  --green: #19a974;
+  --black: #000;
+  --white: #fdfdfd;
+}
+
+.nav {
+  width: 25%;
+  -webkit-box-shadow: 6px 0px 9px 0px var(--shadow-color);
+  -moz-box-shadow: 6px 0px 9px 0px var(--shadow-color);
+  box-shadow: 6px 0px 9px 0px var(--shadow-color);
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 0 20px;
+  row-gap: 40px;
+}
+.logo {
+  display: flex;
+}
+.logo svg {
+  width: 40px;
+  fill: var(--green);
+}
+.logo h1 {
+  font-size: 32px;
+}
+.nav__list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  row-gap: 20px;
+}
+.nav__list li a {
+  display: flex;
+  text-decoration: none;
+  color: var(--black);
+  align-items: center;
+  column-gap: 10px;
+
+  padding: 20px;
+  border-radius: 20px;
+}
+.nav__list li a svg {
+  width: 30px;
+}
+.activeLink {
+  background-color: var(--green);
+  color: var(--white);
+}
+.activeLink svg {
+  stroke: var(--white);
+}
+.unActiveLink {
+  background-color: var(--white);
+  color: var(--black);
+}
+.unActiveLink svg {
+  stroke: var(--green);
+}

@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  background-color: #fdfdfd;
+  min-height: 100vh;
+}
+.children {
+  background-color: #fdfdfd;
+  flex-grow: 1;
+}
