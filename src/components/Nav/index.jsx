@@ -9,7 +9,7 @@ import Stack from '../../assets/icons/stack.svg?react';
 import Circle from '../../assets/icons/circle.svg?react';
 function Nav() {
   const { currentPath } = useContext(RouterContext);
-  console.log('Current route:', currentPath);
+
   return (
     <aside className={styles.nav}>
       <div className={styles.logo}>
