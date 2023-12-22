@@ -1,0 +1,27 @@
+:root {
+  --shadow-color: rgba(34, 60, 80, 0.2);
+  --green: #19a974;
+  --light-green: #28e09d;
+  --black: #000;
+  --white: #fcfcfc;
+  --border: #bbbbbb;
+}
+.container {
+  padding: 20px;
+}
+.form {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  margin-top: 10px;
+}
+.input {
+  width: 50%;
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.item span {
+  flex-grow: 1;
+}
