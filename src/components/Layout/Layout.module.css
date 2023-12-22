@@ -4,7 +4,6 @@
   min-height: 100vh;
 }
 .children {
-  padding: 20px;
   background-color: #fdfdfd;
   flex-grow: 1;
 }
