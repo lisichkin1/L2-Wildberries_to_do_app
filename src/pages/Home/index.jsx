@@ -1,97 +1,54 @@
 import Layout from '../../components/Layout';
-import styles from './Home.module.css';
-import Clock from '../../assets/icons/clock.svg?react';
-import Calendar from '../../assets/icons/calendar.svg?react';
-import Stack from '../../assets/icons/stack.svg?react';
-import Pencil from '../../assets/icons/pencil.svg?react';
-import Trash from '../../assets/icons/trash.svg?react';
+import stylesHome from './Home.module.css';
+import styles from '../../styles/global.module.css';
+import ItemForm from '../../components/ItemForm';
+import Item from '../../components/Item';
+import { useState } from 'react';
 function Home() {
+  const storedTasks = localStorage.getItem('tasksData');
+  const [tasks, setTasks] = useState([]);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [editedTask, setEditedTask] = useState(null);
+  const [addedTask, setAddedTask] = useState(false);
+  const handleTaskClick = (task) => {
+    setSelectedTask(task);
+    setEditedTask(null);
+  };
+  const handleEditTaskClick = (task) => {
+    setEditedTask(task);
+    setSelectedTask(null);
+  };
+
+  const handleClickAddTask = (res) => {
+    setAddedTask(res);
+    setSelectedTask(null);
+    setEditedTask(null);
+  };
+  const handleClickCloseForm = () => {
+    setSelectedTask(null);
+    setEditedTask(null);
+    setAddedTask(false);
+  };
   return (
     <Layout>
-      <h2 className={styles.title}>Все задачи</h2>
-      <h3 className={styles.subtitle}>Среда, 20 декабря</h3>
-      <ul className={styles.list}>
-        <li className={styles.item}>
-          <input type="checkbox" name="" id="" />
-          <div className={styles.description}>
-            <span className={styles.item__title}>Митинг с заказчиком</span>
-            <div className={styles.description__container}>
-              <div className={styles.text__container}>
-                <Clock />
-                <span className={styles.item__text}>07:00</span>
-              </div>
-              <div className={styles.text__container}>
-                <Calendar />
-                <span className={styles.item__text}>21 дек</span>
-              </div>
-              <div className={styles.text__container}>
-                <Stack />
-                <span className={styles.item__text}>учеба</span>
-              </div>
-            </div>
+      <div className={stylesHome.container}>
+        <div className={stylesHome.list__container}>
+          <div className={stylesHome.list__subcontainer}>
+            <h2 className={styles.title}>Все задачи</h2>
+            <Item onTaskClick={handleTaskClick} onEditTaskClick={handleEditTaskClick} />
           </div>
-          <button className={styles.button}>
-            <Pencil />
-          </button>
-          <button className={styles.button}>
-            <Trash />
-          </button>
-        </li>
-        <li className={styles.item}>
-          <input type="checkbox" name="" id="" />
-          <div className={styles.description}>
-            <span className={styles.item__title}>Митинг с заказчиком</span>
-            <div className={styles.description__container}>
-              <div className={styles.text__container}>
-                <Clock />
 
-                <span className={styles.item__text}>07:00</span>
-              </div>
-              <div className={styles.text__container}>
-                <Calendar />
-                <span className={styles.item__text}>21 дек</span>
-              </div>
-              <div className={styles.text__container}>
-                {' '}
-                <Stack />
-                <span className={styles.item__text}>учеба</span>
-              </div>
-            </div>
-          </div>
-          <button className={styles.button}>
-            <Pencil />
+          <button className={stylesHome.button} onClick={() => handleClickAddTask(true)}>
+            Добавить задачу
           </button>
-          <button className={styles.button}>
-            <Trash />
-          </button>
-        </li>
-        <li className={styles.item}>
-          <input type="checkbox" name="" id="" />
-          <div className={styles.description}>
-            <span className={styles.item__title}>Митинг с заказчиком</span>
-            <div className={styles.description__container}>
-              <div className={styles.text__container}>
-                <Clock />
-                <span className={styles.item__text}>07:00</span>
-              </div>
-              <div className={styles.text__container}>
-                <Calendar />
-                <span className={styles.item__text}>21 дек</span>
-              </div>
-              <div className={styles.text__container}>
-                <Stack />
-                <span className={styles.item__text}>учеба</span>
-              </div>
-            </div>
-          </div>
-          <button className={styles.button}>
-            <Pencil />
-          </button>
-          <button className={styles.button}>
-            <Trash />
-          </button>
-        </li>
-      </ul>
+        </div>
+        <ItemForm
+          selectedTask={selectedTask}
+          editedTask={editedTask}
+          addedTask={addedTask}
+          clickCloseForm={handleClickCloseForm}
+        />
+      </div>
     </Layout>
   );
 }
