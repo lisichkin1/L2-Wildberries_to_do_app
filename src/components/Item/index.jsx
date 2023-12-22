@@ -7,9 +7,7 @@ import Trash from '../../assets/icons/trash.svg?react';
 import styles from '../../styles/global.module.css';
 import itemStyles from './Item.module.css';
 import { formatDate, formatDateDeadline, formatTimeDeadline } from '../../utils/date';
-function Item({ onTaskClick, onEditTaskClick }) {
-  const storedTasks = localStorage.getItem('tasksData');
-  const [tasks, setTasks] = useState([]);
+function Item({ tasks, setTasks, onTaskClick, onEditTaskClick }) {
   const [isComplited, setIsComplited] = useState([]);
 
   const handleComplited = (task) => {
@@ -34,25 +32,20 @@ function Item({ onTaskClick, onEditTaskClick }) {
     }
   };
   let datesComplited = [];
-  tasks.forEach((element) => {
-    if (!datesComplited.includes(element.date) && !element.complited) {
-      datesComplited.push(element.date);
-    }
-  });
+  tasks.length > 0 &&
+    tasks.forEach((element) => {
+      if (!datesComplited.includes(element.date) && !element.complited) {
+        datesComplited.push(element.date);
+      }
+    });
   let dates = [];
-  tasks.forEach((element) => {
-    if (!dates.includes(element.date)) {
-      dates.push(element.date);
-    }
-  });
-  useEffect(() => {
-    if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
-    }
-  }, []);
-  useEffect(() => {
-    localStorage.setItem('tasksData', JSON.stringify(tasks));
-  }, [tasks]);
+  tasks.length > 0 &&
+    tasks?.forEach((element) => {
+      if (!dates.includes(element.date)) {
+        dates.push(element.date);
+      }
+    });
+
   useEffect(() => {
     console.log(isComplited);
   }, [isComplited]);

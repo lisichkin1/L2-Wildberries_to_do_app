@@ -3,7 +3,7 @@ import stylesHome from './Home.module.css';
 import styles from '../../styles/global.module.css';
 import ItemForm from '../../components/ItemForm';
 import Item from '../../components/Item';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 function Home() {
   const storedTasks = localStorage.getItem('tasksData');
   const [tasks, setTasks] = useState([]);
@@ -29,13 +29,26 @@ function Home() {
     setEditedTask(null);
     setAddedTask(false);
   };
+  useEffect(() => {
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem('tasksData', JSON.stringify(tasks));
+  }, [tasks]);
   return (
     <Layout>
       <div className={stylesHome.container}>
         <div className={stylesHome.list__container}>
           <div className={stylesHome.list__subcontainer}>
             <h2 className={styles.title}>Все задачи</h2>
-            <Item onTaskClick={handleTaskClick} onEditTaskClick={handleEditTaskClick} />
+            <Item
+              tasks={tasks}
+              setTasks={setTasks}
+              onTaskClick={handleTaskClick}
+              onEditTaskClick={handleEditTaskClick}
+            />
           </div>
 
           <button className={stylesHome.button} onClick={() => handleClickAddTask(true)}>
