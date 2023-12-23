@@ -8,10 +8,9 @@ import styles from '../../styles/global.module.css';
 import itemStyles from './Item.module.css';
 import { formatDate, formatDateDeadline, formatTimeDeadline } from '../../utils/date';
 function Item({ tasks, setTasks, onTaskClick, onEditTaskClick }) {
-  const [isComplited, setIsComplited] = useState([]);
-
+  const [selectSort, setSelectSort] = useState('standart');
+  const [sortedTasks, setSortedTasks] = useState([]);
   const handleComplited = (task) => {
-    setIsComplited(tasks.filter((item) => item.id === task.id));
     setTasks((prevTasks) =>
       prevTasks.map((item) =>
         item.id === task.id ? { ...item, complited: !item.complited } : item,
@@ -31,6 +30,48 @@ function Item({ tasks, setTasks, onTaskClick, onEditTaskClick }) {
       onEditTaskClick(task);
     }
   };
+  const sortTasksDateAsc = () => {
+    const sortedTasksAsc = tasks.sort((a, b) => new Date(a.date) - new Date(b.date));
+    setSortedTasks(sortedTasksAsc);
+  };
+
+  const sortTasksDateDesc = () => {
+    const sortedTasksDesc = tasks.sort((a, b) => new Date(b.date) - new Date(a.date));
+    setSortedTasks(sortedTasksDesc);
+  };
+
+  const sortTasksDeadlineAsc = () => {
+    const sortedTasksAsc = tasks.sort((a, b) => new Date(a.deadLine) - new Date(b.deadLine));
+    setSortedTasks(sortedTasksAsc);
+  };
+
+  const sortTasksDeadlineDesc = () => {
+    const sortedTasksDesc = tasks.sort((a, b) => new Date(b.deadLine) - new Date(a.deadLine));
+    setSortedTasks(sortedTasksDesc);
+  };
+
+  const selectSortTasks = (ev) => {
+    setSelectSort(ev);
+    switch (ev) {
+      case 'DateAsc':
+        sortTasksDateAsc();
+        break;
+      case 'DateDesc':
+        sortTasksDateDesc();
+        break;
+      case 'DeadlineAsc':
+        sortTasksDeadlineAsc();
+        break;
+      case 'DeadlineDesc':
+        sortTasksDeadlineDesc();
+        break;
+      case 'standart':
+        setSortedTasks([...tasks]);
+        break;
+      default:
+        alert('Нет таких значений');
+    }
+  };
   let datesComplited = [];
   tasks.length > 0 &&
     tasks.forEach((element) => {
@@ -45,51 +86,68 @@ function Item({ tasks, setTasks, onTaskClick, onEditTaskClick }) {
         dates.push(element.date);
       }
     });
-
   useEffect(() => {
-    console.log(isComplited);
-  }, [isComplited]);
-  console.log(dates);
+    setSortedTasks(tasks);
+  }, [tasks, setSortedTasks]);
+
   return (
-    <>
+    <div>
+      <select
+        className={itemStyles.sort}
+        name=""
+        id=""
+        value={selectSort}
+        onChange={(ev) => selectSortTasks(ev.target.value)}>
+        <option value="standart">Стандарт</option>
+        <option value="DateAsc">По возрастанию даты</option>
+        <option value="DateDesc">По убыванию даты</option>
+        <option value="DeadlineAsc">По возрастанию дедлайна</option>
+        <option value="DeadlineDesc">По убыванию дедлайна</option>
+      </select>
       {datesComplited.length > 0 &&
         datesComplited.map((date) => (
-          <>
+          <div key={date}>
             <h3 className={styles.subtitle}>{formatDate(date)}</h3>
             <ul className={styles.list}>
-              {tasks.length > 0 &&
-                tasks
+              {sortedTasks.length > 0 &&
+                sortedTasks
                   .filter((task) => date === task.date && !task.complited)
                   .map((task) => (
-                    <li className={styles.item}>
+                    <li key={task.id} className={styles.item}>
                       <input
                         type="checkbox"
                         name=""
                         id=""
-                        checked={task?.complited}
-                        onClick={() => handleComplited(task)}
+                        defaultChecked={task?.complited}
+                        onChange={() => handleComplited(task)}
                       />
                       <div
                         className={itemStyles.description}
                         onClick={() => handleTaskItemClick(task)}>
                         <span className={itemStyles.item__title}>{task.title}</span>
                         <div className={itemStyles.description__container}>
-                          <div className={itemStyles.text__container}>
-                            <Clock />
-                            <span className={itemStyles.item__text}>
-                              {formatTimeDeadline(task.deadLine)}
-                            </span>
-                          </div>
-                          <div className={itemStyles.text__container}>
-                            <Calendar />
-                            <span className={itemStyles.item__text}>
-                              {formatDateDeadline(task.deadLine)}
-                            </span>
-                          </div>
-                          <div className={itemStyles.text__container}>
-                            <Stack />
-                            <span className={itemStyles.item__text}>{task.category}</span>
-                          </div>
+                          {task.deadLine && (
+                            <div className={itemStyles.text__container}>
+                              <Clock />
+                              <span className={itemStyles.item__text}>
+                                {formatTimeDeadline(task.deadLine)}
+                              </span>
+                            </div>
+                          )}
+                          {task.deadLine && (
+                            <div className={itemStyles.text__container}>
+                              <Calendar />
+                              <span className={itemStyles.item__text}>
+                                {formatDateDeadline(task.deadLine)}
+                              </span>
+                            </div>
+                          )}
+                          {task.category && (
+                            <div className={itemStyles.text__container}>
+                              <Stack />
+                              <span className={itemStyles.item__text}>{task.category}</span>
+                            </div>
+                          )}
                         </div>
                       </div>
                       <button
@@ -103,29 +161,31 @@ function Item({ tasks, setTasks, onTaskClick, onEditTaskClick }) {
                     </li>
                   ))}
             </ul>
-          </>
+          </div>
         ))}
-      <h2 className={styles.title + ' ' + itemStyles.title__home}>Завершённые задачи</h2>
+      {sortedTasks.length > 0 && (
+        <h2 className={styles.title + ' ' + itemStyles.title__home}>Завершённые задачи</h2>
+      )}
       {dates.length > 0 &&
         dates.map((date) => (
-          <>
+          <div key={date}>
             <ul className={styles.list}>
-              {tasks.length > 0 &&
-                tasks
+              {sortedTasks.length > 0 &&
+                sortedTasks
                   .filter((task) => date === task.date && task.complited)
                   .map((task) => (
-                    <li className={styles.item + ' ' + itemStyles.overlayContent}>
-                      <div className={itemStyles.overlay}></div>
+                    <li key={task.id} className={styles.item + ' ' + itemStyles.overlayContent}>
+                      <div
+                        className={itemStyles.overlay}
+                        onClick={() => handleTaskItemClick(task)}></div>
                       <input
                         type="checkbox"
                         name=""
                         id=""
-                        checked={task?.complited}
-                        onClick={() => handleComplited(task)}
+                        defaultChecked={task?.complited}
+                        onChange={() => handleComplited(task)}
                       />
-                      <div
-                        className={itemStyles.description}
-                        onClick={() => handleTaskItemClick(task)}>
+                      <div className={itemStyles.description}>
                         <span
                           className={
                             itemStyles.item__title + ' ' + itemStyles.item__title__complited
@@ -133,30 +193,39 @@ function Item({ tasks, setTasks, onTaskClick, onEditTaskClick }) {
                           {task.title}
                         </span>
                         <div className={itemStyles.description__container}>
-                          <div className={itemStyles.text__container}>
-                            <Clock />
-                            <span className={itemStyles.item__text}>
-                              {formatTimeDeadline(task.deadLine)}
-                            </span>
-                          </div>
-                          <div className={itemStyles.text__container}>
-                            <Calendar />
-                            <span className={itemStyles.item__text}>
-                              {formatDateDeadline(task.deadLine)}
-                            </span>
-                          </div>
-                          <div className={itemStyles.text__container}>
-                            <Stack />
-                            <span className={itemStyles.item__text}>{task.category}</span>
-                          </div>
+                          {task.deadLine && (
+                            <div className={itemStyles.text__container}>
+                              <Clock />
+                              <span className={itemStyles.item__text}>
+                                {formatTimeDeadline(task.deadLine)}
+                              </span>
+                            </div>
+                          )}
+                          {task.deadLine && (
+                            <div className={itemStyles.text__container}>
+                              <Calendar />
+                              <span className={itemStyles.item__text}>
+                                {formatDateDeadline(task.deadLine)}
+                              </span>
+                            </div>
+                          )}
+                          {task.category && (
+                            <div className={itemStyles.text__container}>
+                              <Stack />
+                              <span className={itemStyles.item__text}>{task.category}</span>
+                            </div>
+                          )}
                         </div>
                       </div>
+                      <button className={styles.button} onClick={() => handleDeleteTask(task.id)}>
+                        <Trash />
+                      </button>
                     </li>
                   ))}
             </ul>
-          </>
+          </div>
         ))}
-    </>
+    </div>
   );
 }
 
