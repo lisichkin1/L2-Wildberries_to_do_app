@@ -4,5 +4,5 @@ import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
   plugins: [react({ runtime: 'automatic' }), svgr()],
-  base: './',
+  base: '',
 });
