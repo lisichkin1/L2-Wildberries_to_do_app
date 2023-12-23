@@ -45,3 +45,9 @@
 .item__display {
   display: none;
 }
+@media (max-width: 425px) {
+  .button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
