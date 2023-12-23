@@ -57,6 +57,7 @@ export function formatTimeDeadline(dateString) {
   const date = new Date(dateString);
   const hours = date.getHours();
   const minutes = date.getMinutes();
-
-  return `${hours}:${minutes}`;
+  return `${String(hours).length == 1 ? '0' + hours : hours}:${
+    String(minutes).length == 1 ? '0' + minutes : minutes
+  }`;
 }
