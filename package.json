@@ -1,16 +1,14 @@
 {
   "name": "l2-wildberries-to-do-app",
   "private": true,
-  "homepage": "./",
+  "homepage": "https://lisichkin1.github.io/L2-Wildberries_to_do_app/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "deploy": "gh-pages -d dist",
-    "predeploy": "npm run build"
+    "preview": "vite preview"
   },
   "dependencies": {
     "react": "^18.2.0",
