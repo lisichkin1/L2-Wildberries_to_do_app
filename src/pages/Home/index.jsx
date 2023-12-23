@@ -50,59 +50,15 @@ function Home() {
   useEffect(() => {
     console.log(tasks);
   }, [tasks]);
-  if (!('serviceWorker' in navigator)) {
-    // Браузер не поддерживает сервис-воркеры.
-    console.log('не работает');
-  }
 
-  if (!('PushManager' in window)) {
-    // Браузер не поддерживает push-уведомления.
-    console.log('не работает');
-  }
-  if ('serviceWorker' in navigator) {
-    // Браузер не поддерживает сервис-воркеры.
-    console.log('работает 1');
-  }
-
-  if ('PushManager' in window) {
-    // Браузер не поддерживает push-уведомления.
-    console.log('работает 2');
-  }
-  async function registerServiceWorker() {
-    try {
-      const registration = await navigator.serviceWorker.register('./sw.js', {
-        type: 'module',
+  const requestNotificationPermission = () => {
+    if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
+      Notification.requestPermission().then((permission) => {
+        console.log('Permission result:', permission);
       });
-      console.log('Service Worker зарегистрирован:', registration);
-
-      // Если установка push-уведомлений поддерживается
-      if ('PushManager' in window) {
-        console.log('Push поддерживается');
-        await requestNotificationPermission();
-      }
-    } catch (error) {
-      console.error('Ошибка при регистрации сервис-воркера:', error);
     }
-  }
-  async function requestNotificationPermission() {
-    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      try {
-        const permissionResult = await Notification.requestPermission();
-        console.log('Permission result:', permissionResult);
-
-        if (permissionResult === 'granted') {
-          console.log('Разрешение на уведомления получено.');
-        } else {
-          console.warn('Разрешение на уведомления не получено.');
-        }
-      } catch (error) {
-        console.error('Ошибка при регистрации сервис-воркера:', error);
-      }
-    } else {
-      console.warn('Браузер не поддерживает сервис-воркеры или push-уведомления.');
-    }
-  }
-  function setupNotification(tasks) {
+  };
+  const setupNotification = (tasks) => {
     tasks.forEach((task) => {
       if (task.push) {
         const pushTime = new Date(task.push).getTime();
@@ -114,22 +70,24 @@ function Home() {
         }
       }
     });
-  }
+  };
 
   // Функция для отправки уведомления
-  function sendNotification(message) {
-    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      navigator.serviceWorker.ready
-        .then((registration) => {
-          registration.showNotification('To Do App', {
+  const sendNotification = (message) => {
+    if (Notification.permission === 'granted') {
+      new Notification('To Do App', {
+        body: message,
+      });
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          new Notification('To Do App', {
             body: message,
           });
-        })
-        .catch((error) => {
-          console.error('Ошибка при отправке уведомления:', error);
-        });
+        }
+      });
     }
-  }
+  };
 
   // Ваш код для запроса разрешения на уведомления
   requestNotificationPermission();
@@ -138,8 +96,7 @@ function Home() {
 
   // Ваш useEffect для обновления задач
   useEffect(() => {
-    registerServiceWorker(); // Регистрируем сервис-воркер при монтировании компонента
-
+    requestNotificationPermission();
     if (tasks.length > 0) {
       setupNotification(tasks);
     }
