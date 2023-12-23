@@ -59,12 +59,13 @@ function Home() {
     }
   };
   const setupNotification = (tasks) => {
+    const currentTime = new Date().getTime();
+
     tasks.forEach((task) => {
       if (task.push) {
         const pushTime = new Date(task.push).getTime();
-        const currentTime = new Date().getTime();
 
-        if (pushTime > currentTime) {
+        if (pushTime <= currentTime) {
           console.log('время вышло');
           sendNotification(task.title);
         }
