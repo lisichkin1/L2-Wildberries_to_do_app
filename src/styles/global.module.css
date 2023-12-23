@@ -52,3 +52,17 @@
 .button:hover svg {
   stroke: black;
 }
+@media (max-width: 425px) {
+  .title {
+    font-size: 24px;
+  }
+  .subtitle {
+    font-size: 20px;
+  }
+  .button svg {
+    width: 15px;
+  }
+  .item {
+    column-gap: 5px;
+  }
+}
