@@ -13,6 +13,8 @@
 .list__subcontainer {
   display: flex;
   flex-direction: column;
+  position: relative;
+  margin-bottom: 80px;
 }
 .list__container {
   display: flex;
@@ -31,4 +33,15 @@
   cursor: pointer;
   margin-bottom: 40px;
   border-radius: 10px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -20px;
+  z-index: 11;
+}
+.item__undisplay {
+  display: none;
+}
+.item__display {
+  display: none;
 }
