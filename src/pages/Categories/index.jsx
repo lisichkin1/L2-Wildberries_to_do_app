@@ -61,9 +61,6 @@ function Categories() {
     localStorage.setItem('categoriesData', JSON.stringify(categories));
   }, [categories]);
 
-  useEffect(() => {
-    console.log('editedCategory после обновления:', editedCategory);
-  }, [editedCategory]);
   return (
     <Layout>
       <div className={stylesCategory.container}>
