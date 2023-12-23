@@ -17,6 +17,9 @@
   padding: 20px 20px 0 20px;
   row-gap: 40px;
 }
+.logo__container {
+  display: flex;
+}
 .logo {
   display: flex;
 }
@@ -59,4 +62,44 @@
 }
 .unActiveLink svg {
   stroke: var(--green);
+}
+.menu__mobile {
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+@media (max-width: 1700px) {
+  .nav {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+}
+@media (max-width: 960px) {
+  .nav {
+    width: 100%;
+  }
+  .nav__list {
+    flex-direction: row;
+  }
+}
+@media (max-width: 620px) {
+  .nav {
+    width: 100%;
+  }
+  .nav__list {
+    flex-direction: column;
+  }
+  .logo {
+    justify-content: space-between;
+  }
+  .logo__container {
+    width: 100%;
+  }
+  .menu__mobile {
+    display: block;
+  }
 }
