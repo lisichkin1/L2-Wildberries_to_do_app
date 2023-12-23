@@ -157,7 +157,7 @@ function ItemForm({ selectedTask, editedTask, addedTask, clickCloseForm, updateT
               name=""
               id="description"
               cols="30"
-              rows="10"
+              rows="6"
               value={description}
               onChange={(ev) => setDescription(ev.target.value)}></textarea>
           </div>
