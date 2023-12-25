@@ -33,6 +33,16 @@ function ItemForm({ selectedTask, editedTask, addedTask, clickCloseForm, updateT
     }
     return validation;
   };
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = `${now.getMonth() + 1}`.padStart(2, '0');
+    const day = `${now.getDate()}`.padStart(2, '0');
+    const hours = `${now.getHours()}`.padStart(2, '0');
+    const minutes = `${now.getMinutes()}`.padStart(2, '0');
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
   const handleSaveTask = (ev) => {
     ev.preventDefault();
     if (!validationForm()) {
@@ -182,6 +192,7 @@ function ItemForm({ selectedTask, editedTask, addedTask, clickCloseForm, updateT
                 id="deadline"
                 value={date}
                 onChange={(ev) => setDate(ev.target.value)}
+                min={getCurrentDateTime()}
               />
             </div>
             {dateError && <p className={stylesForm.error}>{dateError}</p>}
@@ -206,6 +217,7 @@ function ItemForm({ selectedTask, editedTask, addedTask, clickCloseForm, updateT
               id="deadline"
               value={deadLine}
               onChange={(ev) => setDeadLine(ev.target.value)}
+              min={getCurrentDateTime()}
             />
           </div>
           <div
@@ -228,6 +240,7 @@ function ItemForm({ selectedTask, editedTask, addedTask, clickCloseForm, updateT
               id="push"
               value={push}
               onChange={(ev) => setPush(ev.target.value)}
+              min={getCurrentDateTime()}
             />
           </div>
           {(editedTask || addedTask) && (
