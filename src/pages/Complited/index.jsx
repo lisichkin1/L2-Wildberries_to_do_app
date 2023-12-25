@@ -11,25 +11,34 @@ function Today() {
   const [editedTask, setEditedTask] = useState(null);
   const [addedTask, setAddedTask] = useState(false);
   const [complitedTasksState, setComplitedTasksState] = useState([]);
-  const [isComplitedCheck, setIsComplitedCheck] = useState(false);
+  const [itemDisplay, setItemDisplay] = useState(true);
   const handleTaskClick = (task) => {
     setSelectedTask(task);
     setEditedTask(null);
+    setAddedTask(false);
+    setItemDisplay(window.innerWidth < 1700 ? false : true);
   };
   const handleEditTaskClick = (task) => {
     setEditedTask(task);
     setSelectedTask(null);
+    setAddedTask(false);
+    setItemDisplay(window.innerWidth < 1700 ? false : true);
   };
 
   const handleClickAddTask = (res) => {
     setAddedTask(res);
     setSelectedTask(null);
     setEditedTask(null);
+    setItemDisplay(window.innerWidth < 1700 ? false : true);
   };
   const handleClickCloseForm = () => {
     setSelectedTask(null);
     setEditedTask(null);
     setAddedTask(false);
+    setItemDisplay(true);
+  };
+  const updateTasks = (newTasks) => {
+    setTasks(newTasks);
   };
   useEffect(() => {
     if (storedTasks) {
@@ -49,12 +58,14 @@ function Today() {
         <div className={stylesComplited.list__container}>
           <div className={stylesComplited.list__subcontainer}>
             <h2 className={styles.title}>Завершенные задачи</h2>
-            <Item
-              tasks={complitedTasksState}
-              setTasks={setTasks}
-              onTaskClick={handleTaskClick}
-              onEditTaskClick={handleEditTaskClick}
-            />
+            {itemDisplay && (
+              <Item
+                tasks={complitedTasksState}
+                setTasks={setTasks}
+                onTaskClick={handleTaskClick}
+                onEditTaskClick={handleEditTaskClick}
+              />
+            )}
           </div>
 
           <button className={stylesComplited.button} onClick={() => handleClickAddTask(true)}>
@@ -66,6 +77,7 @@ function Today() {
           editedTask={editedTask}
           addedTask={addedTask}
           clickCloseForm={handleClickCloseForm}
+          updateTasks={updateTasks}
         />
       </div>
     </Layout>

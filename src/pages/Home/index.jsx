@@ -47,9 +47,6 @@ function Home() {
   useEffect(() => {
     localStorage.setItem('tasksData', JSON.stringify(tasks));
   }, [tasks]);
-  useEffect(() => {
-    console.log(tasks);
-  }, [tasks]);
 
   const requestNotificationPermission = () => {
     if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
@@ -90,12 +87,8 @@ function Home() {
     }
   };
 
-  // Ваш код для запроса разрешения на уведомления
   requestNotificationPermission();
 
-  // Ваш код для рендеринга компонента и т.д.
-
-  // Ваш useEffect для обновления задач
   useEffect(() => {
     requestNotificationPermission();
     if (tasks.length > 0) {

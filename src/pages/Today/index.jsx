@@ -11,24 +11,34 @@ function Today() {
   const [editedTask, setEditedTask] = useState(null);
   const [addedTask, setAddedTask] = useState(false);
   const [todayTasksState, setTodayTasksState] = useState([]);
+  const [itemDisplay, setItemDisplay] = useState(true);
   const handleTaskClick = (task) => {
     setSelectedTask(task);
     setEditedTask(null);
+    setAddedTask(false);
+    setItemDisplay(window.innerWidth < 1700 ? false : true);
   };
   const handleEditTaskClick = (task) => {
     setEditedTask(task);
     setSelectedTask(null);
+    setAddedTask(false);
+    setItemDisplay(window.innerWidth < 1700 ? false : true);
   };
 
   const handleClickAddTask = (res) => {
     setAddedTask(res);
     setSelectedTask(null);
     setEditedTask(null);
+    setItemDisplay(window.innerWidth < 1700 ? false : true);
   };
   const handleClickCloseForm = () => {
     setSelectedTask(null);
     setEditedTask(null);
     setAddedTask(false);
+    setItemDisplay(true);
+  };
+  const updateTasks = (newTasks) => {
+    setTasks(newTasks);
   };
   useEffect(() => {
     if (storedTasks) {
@@ -50,7 +60,6 @@ function Today() {
       );
     });
 
-    // Выводим отфильтрованные задачи в консоль (можете заменить этот код своей логикой)
     setTodayTasksState(todayTasks);
   }, [tasks]);
   return (
@@ -59,12 +68,14 @@ function Today() {
         <div className={stylesToday.list__container}>
           <div className={stylesToday.list__subcontainer}>
             <h2 className={styles.title}>Задачи на сегодня</h2>
-            <Item
-              tasks={todayTasksState}
-              setTasks={setTasks}
-              onTaskClick={handleTaskClick}
-              onEditTaskClick={handleEditTaskClick}
-            />
+            {itemDisplay && (
+              <Item
+                tasks={todayTasksState}
+                setTasks={setTasks}
+                onTaskClick={handleTaskClick}
+                onEditTaskClick={handleEditTaskClick}
+              />
+            )}
           </div>
 
           <button className={stylesToday.button} onClick={() => handleClickAddTask(true)}>
@@ -76,6 +87,7 @@ function Today() {
           editedTask={editedTask}
           addedTask={addedTask}
           clickCloseForm={handleClickCloseForm}
+          updateTasks={updateTasks}
         />
       </div>
     </Layout>

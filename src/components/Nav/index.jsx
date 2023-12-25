@@ -10,21 +10,16 @@ import Circle from '../../assets/icons/circle.svg?react';
 import Bars from '../../assets/icons/bars.svg?react';
 function Nav({ displayMenuMobile, setDisplayMenuMobile }) {
   const { currentPath } = useContext(RouterContext);
-  // Функция для обработки изменения размера окна
+
   const handleResize = () => {
-    // Установите состояние в false, если ширина экрана меньше или равна 620
     setDisplayMenuMobile(window.innerWidth > 620);
   };
 
-  // Используйте useEffect для подписки на событие изменения размера окна
   useEffect(() => {
-    // Вызовите handleResize при монтировании компонента
     handleResize();
 
-    // Подпишитесь на событие изменения размера окна
     window.addEventListener('resize', handleResize);
 
-    // Очистите подписку при размонтировании компонента
     return () => {
       window.removeEventListener('resize', handleResize);
     };

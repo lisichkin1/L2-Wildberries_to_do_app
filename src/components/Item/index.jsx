@@ -8,7 +8,7 @@ import styles from '../../styles/global.module.css';
 import itemStyles from './Item.module.css';
 import { formatDate, formatDateDeadline, formatTimeDeadline } from '../../utils/date';
 function Item({ tasks, setTasks, onTaskClick, onEditTaskClick }) {
-  const [selectSort, setSelectSort] = useState('standart');
+  const [selectSort, setSelectSort] = useState('DateAsc');
   const [sortedTasks, setSortedTasks] = useState([]);
   const handleComplited = (task) => {
     setTasks((prevTasks) =>
@@ -65,9 +65,7 @@ function Item({ tasks, setTasks, onTaskClick, onEditTaskClick }) {
       case 'DeadlineDesc':
         sortTasksDeadlineDesc();
         break;
-      case 'standart':
-        setSortedTasks([...tasks]);
-        break;
+
       default:
         alert('Нет таких значений');
     }
@@ -89,7 +87,9 @@ function Item({ tasks, setTasks, onTaskClick, onEditTaskClick }) {
   useEffect(() => {
     setSortedTasks(tasks);
   }, [tasks, setSortedTasks]);
-
+  useEffect(() => {
+    sortTasksDateAsc();
+  }, [tasks]);
   return (
     <div>
       <select
@@ -98,7 +98,6 @@ function Item({ tasks, setTasks, onTaskClick, onEditTaskClick }) {
         id=""
         value={selectSort}
         onChange={(ev) => selectSortTasks(ev.target.value)}>
-        <option value="standart">Стандарт</option>
         <option value="DateAsc">По возрастанию даты</option>
         <option value="DateDesc">По убыванию даты</option>
         <option value="DeadlineAsc">По возрастанию дедлайна</option>

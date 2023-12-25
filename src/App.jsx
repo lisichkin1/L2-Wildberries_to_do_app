@@ -1,5 +1,3 @@
-// App.js
-
 import React from 'react';
 import { Router, Route } from './Router';
 import Home from './pages/Home';

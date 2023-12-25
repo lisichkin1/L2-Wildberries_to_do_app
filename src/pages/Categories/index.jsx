@@ -33,30 +33,26 @@ function Categories() {
     }
   };
   const handleKeyDown = (event) => {
-    // обрабатываем только клавишу Enter
     if (event.key === 'Enter') {
       handleAddCategory();
     }
   };
-  //функция редактирования категории
+
   const handleEditCategory = (category) => {
     setEditedCategory(category);
     setCategoryName(category);
   };
 
-  //функция удаления категории
   const handleDeleteCategory = (categoryIndex) => {
     setCategories((prevCategories) => prevCategories.filter((_, index) => index !== categoryIndex));
   };
 
-  //Записываем в сейт данные из localStorage при загрузке страницы
   useEffect(() => {
     if (storedCategories) {
       setCategories(JSON.parse(storedCategories));
     }
   }, []);
 
-  //записываем данные в localStorage, при изменении categories
   useEffect(() => {
     localStorage.setItem('categoriesData', JSON.stringify(categories));
   }, [categories]);
