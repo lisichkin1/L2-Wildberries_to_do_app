@@ -30,7 +30,7 @@
 
 ### Запуск
 
-Приложение доступно по [ссылке](https://lisichkin1.github.io/L2-Wildberries_tic_tac_toe/)
+Приложение доступно по [ссылке](https://l2-wildberries-to-do-app.vercel.app/)
 
 Для локального запуска выполните следующие шаги:
 
