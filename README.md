@@ -49,3 +49,10 @@ npm run dev
 ```
 
 ### Демо приложения
+
+![2023-12-25_15-32-11](https://github.com/lisichkin1/L2-Wildberries_to_do_app/assets/91782961/ae71adfc-72cc-4b0a-a3a8-2c6c01510216)
+![2023-12-25_15-32-57](https://github.com/lisichkin1/L2-Wildberries_to_do_app/assets/91782961/0f361e15-4f4e-4cbf-a376-4956f647da68)
+![2023-12-25_15-33-34](https://github.com/lisichkin1/L2-Wildberries_to_do_app/assets/91782961/cbfc4c02-586f-4ee0-bc1d-062e75d04a1b)
+
+
+
