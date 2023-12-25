@@ -24,6 +24,10 @@
 3. Категории(старница создания категорий)
 4. Завершенные(отображает завершенные задачи)
 
+### Дизайн
+
+Референс дизайна был взят с данного [сайта](https://www.behance.net/gallery/185102149/UX-Case-Study-Task-Ease-To-Do-List-App?tracking_source=search_projects&l=0)!
+
 ### Запуск
 
 Приложение доступно по [ссылке](https://lisichkin1.github.io/L2-Wildberries_tic_tac_toe/)
