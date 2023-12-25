@@ -1,8 +1,51 @@
-# React + Vite
+# L2-Wildberries_to_do_app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Приложение «Планировщик задач»
 
-Currently, two official plugins are available:
+- Классический вариант приложения «Планировщик задач»
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Функционал
+
+Пользователь может:
+
+1. Упарвлять задачами по системе CRUD(create, read, update, delete). Добавлена частичная валидация формы с целью того, что пользователь может
+   создать задачу только с названием и датой или полностью заполнить все поля, но задачу без названия и даты создать невозможно.
+2. Соритровать задачи по дате их создания или по дате дедлайна
+3. Добавлять задачи в список выполненных задач
+4. Настраивать уведомления о задачах
+5. Создавать свои категории, к которой будет относиться конкретная задача(учеба, работа и т.д.)
+
+## Доступные страницы
+
+В приложении реализовано 4 страницы:
+
+1. Все(отображает все задачи)
+2. Сегодня(отображает сегодняшние задачи)
+3. Категории(старница создания категорий)
+4. Завершенные(отображает завершенные задачи)
+
+### Запуск
+
+Приложение доступно по [ссылке](https://lisichkin1.github.io/L2-Wildberries_tic_tac_toe/)
+
+Для локального запуска выполните следующие шаги:
+
+1. Склонируйте себе репозиторий:
+
+```
+git clone git@github.com:lisichkin1/L2-Wildberries_to_do_app.git
+```
+
+2. Установите зависимости:
+
+```
+npm install
+```
+
+2. Запустите проект:
+
+```
+npm run dev
+```
+
+### Демо приложения
