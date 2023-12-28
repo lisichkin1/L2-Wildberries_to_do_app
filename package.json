@@ -1,5 +1,5 @@
 {
-  "homepage": "https://lisichkin1.github.io/L2-Wildberries_to_do_app/",
+  "homepage": "https://l2-wildberries-to-do-app.vercel.app/",
   "name": "l2-wildberries-to-do-app",
   "private": true,
   "version": "0.0.0",
@@ -13,7 +13,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "gh-pages": "^6.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
